@@ -131,4 +131,27 @@ function ajouterProduit(): void {
 }
 
 ajouterProduit();
+
+// 5: ajouter une catégorie en lui affectant des produits
+
+function enregistrerCategorieAvecProduits(): void {
+    global $categories;
+    $code = saisieChampObligatoireEtUnique($categories, "Entrez le code :", "champs obligatoire : ", "code");
+    $nom = saisieChampObligatoireEtUnique($categories, "Entrez le nom :", "champs obligatoire : ", "nom");
+
+    $produits = [];
+    do {
+        $produits[] = saisirProduit();
+        $choix = strtolower(saisieChaine("voulez vous continuer oui|non : "));
+    } while ($choix === "oui");
+
+    $categorie = [
+        "code" => $code,
+        "nom" => $nom,
+        "produits" => $produits
+    ];
+    $categories[] = $categorie;
+}
+
+enregistrerCategorieAvecProduits();
 ?>
