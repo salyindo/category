@@ -85,5 +85,73 @@ foreach ($categories as  $categorie ) {
          ];
 
          
+//4
+$categorieExiste =  false;
+$code = readline("saisir le code :");
+foreach ($categories as $index => $categorie ) {
+        if (($categorie["code"]) === $code) {
+            $categorieExiste = true;
+            break;
+        }
+} 
 
+
+if ($categorieExiste) {
+      
+        $nomIsValid = true;
+        do { 
+            
+            $nom = readline("saisir le nom : ");
+            if (empty($nom)) {
+                echo "le nom est obligatoire";
+                $nomIsValid= false;
+            }else{
+                foreach ($categories as  $categorie ) {
+                    if (($categorie["nom"]) === $nom) {
+                        $nomIsValid = false;
+                        echo "le nom existe deja ..."; 
+                    }
+                }  
+            }
+        } while (!$nomIsValid);   
+
+
+        $refIsValid = true;
+        do { 
+            
+            $reference = readline("saisir la reference : ");
+            if (empty($reference)) {
+                echo "la reference est obligatoire";
+                $refIsValid= false;
+            }else{
+                foreach ($categories as  $categorie ) {
+                    if (($categorie["reference"]) === $reference) {
+                        $refIsValid = false;
+                        echo "la reference existe deja ..."; 
+                    }
+                }  
+            }
+        } while (!$refIsValid);  
+
+        do {
+            $prix = (int)readline("saisir le prix : ");
+        } while ($prix <= 0);
+        
+        
+        do {
+            $quantite = (int)readline("saisir la quantite : ");
+        } while ($quantite  <= 0);
+          
+
+        $produit =   [
+            "nom" => $nom,
+            "reference" => $reference,
+            "prix" => $prix,
+            "quantité" => $quantite
+        ] ;
+
+        $categories[$index]["produits"][] = $produit;
+}else {
+        echo " désolé , la categorie n'existe pas...";
+}
 ?>
